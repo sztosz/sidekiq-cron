@@ -17,7 +17,6 @@ module Sidekiq
         enqueue = false
         enqueue = Sidekiq.redis do |conn|
           status == "enabled" &&
-            not_past_scheduled_time?(time) &&
             not_enqueued_after?(time) &&
             conn.zadd(job_enqueued_key, formated_enqueue_time(time), formated_last_time(time))
         end
